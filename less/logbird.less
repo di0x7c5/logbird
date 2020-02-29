@@ -1,0 +1,158 @@
+@import "theme/default.less";
+
+@import "generic.less";
+@import "layout.less";
+@import "form.less";
+@import "buttons.less";
+@import "label.less";
+@import "section.less";
+@import "html.less";
+@import "progress.less";
+@import "social.less";
+@import "simpleicon.less";
+@import "navbar.less";
+@import "window.less";
+@import "utils.less";
+
+// Utils?
+.file-record-icon(@iconhex) {
+    content: @iconhex;
+    font-family: FontAwesome;
+    font-style: normal;
+    font-weight: normal;
+    text-decoration: none;
+    position: absolute;
+    font-size: 50px;
+    line-height: 50px;
+
+    top: 25px;
+    left: 50%;
+
+    transform: translate(-50%, 0);
+}
+
+// --------------------------------------------------------------------
+// Alerts
+// --------------------------------------------------------------------
+.alert {
+    background-repeat: none;
+    border: none;
+    border-radius: 10px;
+    text-shadow: none;
+    box-shadow: none;
+}
+
+.alert-success {
+    color: @font-light;
+    background: fadeout(@success, 25%);
+}
+
+.alert-info {
+    color: @font-light;
+    background: fadeout(@base, 25%);
+}
+
+.alert-warning {
+    color: @font-dark;
+    background: fadeout(@warning, 25%);
+}
+
+.alert-danger {
+    color: @font-light;
+    background: fadeout(@danger, 25%);
+}
+
+
+// --------------------------------------------------------------------
+// File record in input files list
+// --------------------------------------------------------------------
+.file-record {
+    overflow: hidden;
+
+    width: 170px;
+    height: 170px;
+    position: relative;
+    display: inline-block;
+    padding: 90px 0 0 0;
+    margin: 5px;
+    position: relative;
+
+    // On success
+    color: @base;
+    background-color: #fff;
+    &:after {
+        .file-record-icon('\f00c');
+    }
+
+    &.file-record-error {
+        color: @danger;
+        &:after {
+            .file-record-icon('\f00d');
+        }
+    }
+
+    &:hover, &:focus {
+        .name { display: none; }
+        .close, .mime, .size, .error { display: block; }
+    }
+
+    .file-record-close {
+        margin-top: 10px;
+        margin-right: 10px;
+        display: none;
+        position: absolute;
+        right: 0;
+        top: 0;
+    }
+
+    .file-record-name,
+    .file-record-mime,
+    .file-record-size,
+    .file-record-error {
+        font-family: 'Roboto Condensed', sans-serif;
+        font-weight: 400;
+        overflow: hidden;
+        display: none;
+    }
+
+    .file-record-name {
+        display: block;
+    }
+}
+
+// --------------------------------------------------------------------
+// Process Records
+// --------------------------------------------------------------------
+.process-record {
+    margin-bottom: 28px;
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.1);
+
+    .process-pid {
+        background-color: @base;
+        color: white;
+        padding: 8px;
+        font-weight: 600;
+        font-size: 12px;
+        line-height: 12px;
+
+        .badge {
+            background-color: rgba(0,0,0, 0.15);
+            float: right;
+            border-radius: 0;
+            margin: 0;
+            padding: 8px;
+            margin-top: -8px;
+            margin-right: -8px;
+        }
+    }
+
+    .process-tags {
+        padding: 8px;
+        background-color: white;
+        min-height: 80px;
+    }
+
+    &.success {
+        .process-pid { background-color: red; }
+    }
+}

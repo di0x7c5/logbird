@@ -1,0 +1,138 @@
+.btn {
+    color: @font-light;
+    border: none;
+    border-radius: 10px;
+    text-align: center;
+    text-decoration: none;
+    text-shadow: none;
+    box-shadow: none;
+}
+
+.btn-default {
+    background: @base;
+}
+
+.btn-primary {
+    background: @primary;
+}
+
+.btn-success {
+    background: @success;
+}
+
+.btn-info {
+    background: @info;
+}
+
+.btn-warning {
+    background: @warning;
+}
+
+.btn-danger {
+    background: @danger;
+}
+
+.btn-default:hover,
+.btn-default:focus {
+    color: @font-light;
+    background: @hover;
+}
+
+.btn-primary:hover,
+.btn-primary:focus {
+    color: @font-light;
+    background: @primary-hover;
+}
+
+.btn-success:hover,
+.btn-success:focus {
+    color: @font-light;
+    background: @success-hover;
+}
+
+.btn-info:hover,
+.btn-info:focus {
+    color: @font-light;
+    background: @info-hover;
+}
+
+.btn-warning:hover,
+.btn-warning:focus {
+    color: @font-light;
+    background: @warning-hover;
+}
+
+.btn-danger:hover,
+.btn-danger:focus {
+    color: @font-light;
+    background: @danger-hover;
+}
+
+.btn-power-on,
+.btn-power-on:hover,
+.btn-power-on:focus,
+.btn-power-off,
+.btn-power-off:hover,
+.btn-power-off:focus {
+    color: @font-light;
+}
+
+.btn-power-on {
+    background: @success;
+    &:hover { background: @success-hover; }
+}
+
+.btn-power-off {
+    background: @danger;
+    &:hover { background: @danger-hover; }
+}
+
+.alert {
+    .btn {
+        color: @base;
+        background: @font-light;
+        margin: 0 3px;
+    }
+
+    .btn-default, .btn-primary, .btn-success, .btn-info, .btn-warning, .btn-danger {
+        &:hover { color: @font-light; }
+    }
+
+    .btn-default:hover,
+    .btn-default:focus {
+        background: @base;
+    }
+
+    .btn-primary:hover,
+    .btn-primary:focus {
+        background: @primary;
+    }
+
+    .btn-success:hover,
+    .btn-success:focus {
+        background: @success;
+    }
+
+    .btn-info:hover,
+    .btn-info:focus {
+        background: @info;
+    }
+
+    .btn-warning:hover,
+    .btn-warning:focus {
+        background: @warning;
+    }
+
+    .btn-danger:hover,
+    .btn-danger:focus {
+        background: @danger;
+    }
+}
+
+.btn-group {
+    .btn {
+        border-left: 1px solid fadeout(@base, 90%);
+        &:first-child { border-left: none; }
+    }
+
+}

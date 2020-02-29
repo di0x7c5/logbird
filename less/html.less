@@ -1,0 +1,126 @@
+#htmlLogbirdLogo {
+    text-align: center;
+    .mp0;
+
+    h1 {
+        font-size: 72px;
+        line-height: 72px;
+        color: @base;
+        .mp0;
+
+        .beta {
+            font-size: 12px;
+            padding: 4px 12px;
+            margin-left: 3px;
+            background: @base;
+            border-radius: 10px;
+            color: @font-light;
+            text-transform: uppercase;
+            font-weight: 700;
+        }
+    }
+
+    h2 { color: fadeout(@base, 10%); }
+}
+
+#htmlLogbirdTable {
+    width: 100%;
+    font-size: 12px;
+    font-family: monospace;
+    display: none;
+    margin-top: 20px;
+}
+
+#htmlLogbirdTable > tbody > tr > td {
+    padding: 0 5px;
+}
+
+#htmlBackToTop {
+    position: fixed;
+    bottom: 32px;
+    right: 32px;
+    padding: 12px;
+    display: none;
+    color: white;
+    background-color: @default;
+    border-radius: 5px;
+    cursor: pointer;
+
+    &:hover { background-color: @default-hover; }
+}
+
+#htmlInputfiles {
+    text-align: center;
+    &:after {
+        clear: left;
+        content: ' ';
+    }
+}
+
+#htmlLoadTime {
+    color: white;
+    display: none;
+    left: 20px;
+    bottom: 20px;
+    position: fixed;
+    padding: 5px 15px;
+    background-color: #999;
+    border-radius: 4px;
+}
+
+.big-button {
+    display: block !important;
+    border-radius: 4px !important;
+    background: @base !important;
+    color: @font-light !important;
+    text-decoration: none !important;
+    text-align: center !important;
+    width: 190px !important;
+    margin: 20px auto;
+    line-height: 72px !important;
+    font-size: 22px !important;
+    cursor: pointer !important;
+
+    &:hover {
+        background: @hover !important;
+        color: @font-light;
+    }
+}
+
+.clearCookieButton,
+#htmlButtonBrowse,
+#htmlButtonSubmit {
+    .big-button();
+}
+
+.clearCookieButton {
+    width: 300px !important;
+}
+
+#htmlBlackList {
+    min-height: 24px;
+}
+
+#htmlBlackListForm {
+    width: 200px;
+    text-align: center;
+    display: block;
+    margin: 20px auto 30px;
+}
+
+#htmlFileName {
+    text-align: center;
+    padding: 50px 0px 70px;
+}
+
+#htmlPoweredBy {
+    text-align: center;
+    margin: 30px 0;
+}
+
+#htmlTagRegexClear {
+    position: absolute;
+    right: 30px;
+    top: 25px;
+    z-index: 1000;
+}

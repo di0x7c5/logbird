@@ -1,0 +1,79 @@
+.label {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 500;
+    background-color: @default;
+    display: inline-block;
+    padding: 5px 6px;
+    margin-bottom: 3px;
+    margin-right: 3px;
+
+    &:hover, &focus {
+        cursor: pointer;
+        background-color: @default-hover;
+    }
+
+    &.primary {
+        background-color: @primary;
+        &:hover, &:focus { background-color: @primary-hover; }
+    }
+
+    &.success {
+        background-color: @base;
+        &:hover, &:focus { background-color: @hover; }
+    }
+
+    &.info {
+        background-color: @info;
+        &:hover, &:focus { background-color: @info-hover; }
+    }
+
+    &.warning {
+        background-color: @warning;
+        &:hover, &:focus { background-color: @warning-hover; }
+    }
+
+    &.danger {
+        background-color: @danger;
+        &:hover, &:focus { background-color: @danger-hover; }
+    }
+
+    &.checkpoint {
+        opacity: 0;
+        padding: 2px 3px;
+        margin: 0 2px;
+/*         color: #999; */
+/*         &:hover, */
+/*         &:focus { */
+/*             color: #808080; */
+/*             opacity: 1; */
+/*         } */
+    }
+
+    &.min {
+        padding: 2px 3px;
+        margin: 0 2px;
+    }
+
+    &.pid {
+/*         width: 100%; */
+    }
+
+    .badge {
+        font-size: 9px;
+        padding: 2px 4px;
+    }
+}
+
+.stripe {
+
+    .label {
+        color: @base;
+        &:hover, &:focus { color: @font-light; }
+
+        &.success {
+            background-color: @font-light;
+            &:hover, &:focus { background-color: @hover; }
+        }
+    }
+
+}

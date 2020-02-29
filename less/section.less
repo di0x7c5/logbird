@@ -1,0 +1,175 @@
+section {
+/*     padding: 5px 0; */
+}
+
+#section-cookies {
+    margin-top: 10px;
+}
+
+#section-navbar {
+    display: none;
+}
+
+#section-progress {
+    position: fixed;
+    top: 50px;
+    bottom: -20px;
+    width: 100%;
+    z-index: 999;
+    display: none;
+}
+
+#section-header {
+}
+
+#section-messages {
+}
+
+#section-files {
+    display: relative;
+    min-height: 206px;
+    text-align: center;
+
+    background-position: center;
+    background-repeat: no-repeat;
+    background-image: url(../img/android.png);
+}
+
+#section-submit {
+    margin-top: 15px;
+}
+
+#section-blacklist {
+    margin-bottom: 20px;
+}
+
+#section-settings {
+}
+
+#section-debug {
+    margin-bottom: 20px;
+}
+
+#section-features {
+    color: @font-light;
+    padding-bottom: 50px;
+
+    h1 {
+        font-size: 42px;
+        font-weight: 100;
+        text-align: center;
+    }
+
+    ul {
+        li {
+            display: inline-block;
+            list-style: none;
+            text-align: center;
+            vertical-align: top;
+            padding: 0 12px;
+
+            @media (max-width: 767px) {
+                width: 100%;
+            }
+
+            @media (min-width: 768px) and (max-width: 991px) {
+                width: 49%;
+            }
+
+            @media (min-width: 992px) and (max-width: 1199px) {
+                width: 33%;
+            }
+
+            @media (min-width: 1200px) {
+                width: 33%;
+            }
+
+            span {
+                display: block;
+
+                &.glyphicon {
+                    font-size: 72px;
+                    margin: 25px 0;
+                }
+
+                &.title {
+                    margin: 0;
+                    font-weight: 700;
+                    text-transform: uppercase;
+                }
+
+                &.description {
+                    font-weight: 100;
+                    text-align: justify;
+                }
+            }
+        }
+    }
+}
+
+@media (max-width: 767px) {
+    #section-features { ul { li { width: 100%; } } }
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+    #section-features { ul { li { width: 49%; } } }
+}
+
+@media (min-width: 992px) and (max-width: 1199px) {
+    #section-features { ul { li { width: 33%; } } }
+}
+
+@media (min-width: 1200px) {
+    #section-features { ul { li { width: 33%; } } }
+}
+
+#section-feedback {
+    label {
+        color: @base;
+        margin-top: 10px;
+    }
+
+    input[type="submit"] {
+        display: block !important;
+        border: none !important;
+        border-radius: 10px !important;
+        background: @base !important;
+        color: @font-light !important;
+        font-size: 22px !important;
+        font-weight: 100 !important;
+        text-decoration: none !important;
+        text-align: center !important;
+        margin: 20px auto !important;
+        padding: 15px 0;
+        width: 100% !important;
+
+        &:hover { background: @hover !important; }
+    }
+}
+
+#section-output {
+    display: none;
+    margin-top: 30px;
+
+    #output-messages {
+        .alert {
+            margin: 20px 0 0 0;
+        }
+    }
+}
+
+#section-footer {
+    padding: 16px 0;
+    text-align: center;
+
+    p {
+        margin: 0;
+    }
+
+    a {
+        font-weight: 700;
+        &:hover { color: @base; }
+    }
+
+    margin: 0;
+}

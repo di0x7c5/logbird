@@ -1,0 +1,206 @@
+body {
+    background-image: url(../img/bg.png);
+    font: 14px/19px Roboto, sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6, h7, h8, h9 {
+    color: @base; 
+    font-family: 'Roboto Condensed', sans-serif;
+}
+
+a {
+    color: @base;
+    &:focus,
+    &:hover {
+        color: @spout;
+        text-decoration: none;
+    }
+}
+
+.section-title {
+    text-align: center;
+    font-size: 42px;
+    font-weight: 100;
+    text-align: center;
+    color: @base;
+}
+
+p {
+    color: @base; 
+}
+
+.stripe {
+    color: @font-light; 
+    width: 100%;
+    background: @hover;
+    padding: 10px 0;
+
+    .section-title { color: @font-light; }
+}
+
+#htmlMenuTop {
+    .p2;
+    .m0;
+
+    a {
+        color: @base;
+        .p2;
+        border-radius: 10px;
+        .transition;
+
+        &:hover, &:focus {
+            background: @base;
+            cursor: pointer;
+            color: @font-light;
+        }
+    }
+}
+
+#menu-top {
+/*     margin: 20px 0; */
+
+    ul {
+        float: right;
+        margin: 0;
+        padding: 0;
+
+        li {
+            list-style: none;
+            float: left;
+
+            a {
+                color: @base;
+                .p2;
+                border-radius: 10px;
+                .transition;
+
+                &:hover, &:focus {
+                    background: @base;
+                    cursor: pointer;
+                    color: @font-light;
+                }
+            }
+        }
+
+        &:after {
+            content: ' ';
+            display: block;
+            clear: right;
+        }
+    }
+}
+
+[data-priority="verbose"] {
+    background-color: @verbose;
+    &:hover, &:focus { background-color: @verbose-hover; }
+}
+
+[data-priority="debug"] {
+    background-color: @debug;
+    &:hover, &:focus { background-color: @debug-hover; }
+}
+
+[data-priority="info"] {
+    background-color: @info;
+    &:hover, &:focus { background-color: @info-hover; }
+}
+
+[data-priority="warning"] {
+    background-color: @warning;
+    &:hover, &:focus { background-color: @warning-hover; }
+}
+
+[data-priority="error"] {
+    background-color: @error;
+    &:hover, &:focus { background-color: @error-hover; }
+}
+
+[data-priority="fatal"] {
+    color: white;
+    background-color: @fatal;
+    &:hover, &:focus { background-color: @fatal-hover; }
+}
+
+tr.title {
+    background-color: #666;
+    color: #fff;
+    &:hover { background-color: #999; }
+}
+
+/* Logbird table's columns */
+.col-line { width: 1px; }
+.col-icon { width: 1px; text-align: center; }
+.col-data { width: 1px; }
+.col-time { width: 1px; }
+.col-pid { width: 1px; text-align: center; }
+.col-tid { width: 1px; text-align: center; }
+.col-priority { width: 1px; text-align: center; }
+.col-tag { width: 1px; }
+.col-log { width: 100%; }
+
+td[link-to-line] {
+    color: @link;
+    text-align: right;
+
+    &:hover {
+        cursor: pointer;
+        color: @link-hover;
+    }
+}
+
+.loadingbox {
+    padding: 10px;
+    background-color: #fff;
+    box-shadow: 0 0 8px #333;
+    border-radius: 4px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -206px;
+    margin-left: -150px;
+}
+
+/* Bootsrap fixs */
+[data-toggle],
+a:hover {
+    text-decoration: none;
+}
+
+/* Hide input file type */
+input[type="file"] {
+    position: absolute;
+    display: none;
+}
+
+
+
+.note-time,
+.note-time.error {
+    color: white;
+    text-align: center;
+}
+
+.note-time {
+    background: @base;
+    &:hover { background: @spout; }
+}
+
+.note-time.error {
+    background: @danger;
+    &:hover, &:focus { background: @danger-hover; }
+}
+
+.nopadding {
+    padding: 0;
+}
+
+.nomargin {
+    margin : 0;
+}
+
+.nw {
+    white-space: nowrap;
+}
+
+
+
