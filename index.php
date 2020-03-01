@@ -366,9 +366,8 @@
     <div class="container">
         <div class="row">
             <div class="col-xs-12">
-                <p>GNU General Public License v2.0</p>
+                <p>This tool is licenced under GNU General Public License v2.0</p>
                 <p>Source code on <a href="https://github.com/di0x7c5/logbird">GitHub</a></p>
-                <p>By <a href="http://blackisthecolor.pl">@di0x7c5</a></p>
             </div>
         </div>
     </div>
