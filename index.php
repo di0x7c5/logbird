@@ -150,6 +150,9 @@
                 <div id="htmlLogbirdLogo">
                     <h1>&nbsp;&nbsp;log<strong>bird</strong><span class="beta"><?php echo $version; ?></span></h1>
                 </div>
+                <div>
+                    <p style="text-align: center;margin: 1em 0;font-size: 16px;font-weight: 400;">An interactive text file parser, written in JavaScript using the jQuery library, for quick analysis of logcat and dmesg kernel logs from Android™.</p>
+                </div>
             </div>
         </div>
     </div>
