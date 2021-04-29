@@ -1054,12 +1054,12 @@ function onFileUpload(evt) {
             }
 
             if (format.haveTime(logbird.format)) {
-                tableContent.push('<td>', log.time, '</td>');
+                tableContent.push('<td class="nw">', log.time, '</td>');
                 columnleft--;
             }
 
             if (format.haveTag(logbird.format)) {
-                tableContent.push('<td>', wrapTag(log.tag), '</td>');
+                tableContent.push('<td class="nw">', wrapTag(log.tag), '</td>');
                 logbird.addTag(log.tag);
                 columnleft--;
             }
