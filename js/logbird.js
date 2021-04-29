@@ -246,7 +246,7 @@ var CheckpointManager = {
         if (this.checkpointA.time != -1 && this.checkpointB.time != -1) {
             var diff = this.checkpointB.time - this.checkpointA.time;
 
-            $(menu.checkpoint).html('<span class="label danger">A-B</span>: <span class="label">' + diff.toFixed(3) + ' s.</span>');
+            $(menu.checkpoint).html('<span class="label danger">A-B</span>: <span class="label">' + diff.toFixed(6) + ' s.</span>');
             $(menu.checkpoint).show();
         } else {
             $(menu.checkpoint).hide();
@@ -485,9 +485,10 @@ var format = {
     LONG       : 6,
     CRASH      : 7,
     KERNEL     : 8,
+    SYSLOG     : 9,
 
-    haveData     : function(f) { return (f == this.TIME || f == this.THREADTIME || f == this.LONG) ? true : false; },
-    haveTime     : function(f) { return (f == this.TIME || f == this.THREADTIME || f == this.LONG || f == this.CRASH || f == this.KERNEL) ? true : false; },
+    haveData     : function(f) { return (f == this.TIME || f == this.THREADTIME || f == this.LONG || f == this.SYSLOG) ? true : false; },
+    haveTime     : function(f) { return (f == this.TIME || f == this.THREADTIME || f == this.LONG || f == this.CRASH || f == this.KERNEL || f == this.SYSLOG) ? true : false; },
     haveTag      : function(f) { return (f != this.RAW && f != this.KERNEL) ? true : false; },
     havePriority : function(f) { return (f != this.RAW) ? true : false; },
     havePID      : function(f) { return (f != this.RAW && f != this.TAG && f != this.KERNEL) ? true : false; },
@@ -503,6 +504,7 @@ var format = {
             case this.LONG: return "Logcat::Long";
             case this.CRASH: return "Crash";
             case this.KERNEL: return "Kernel";
+            case this.SYSLOG: return "Syslog";
             default: return "Raw";
         }
     }
@@ -734,9 +736,9 @@ var logbird = {
 // Regular Expressions
 var regex = {
     DATA   : "(\\d{2}-\\d{2})",
-    TIME   : "(\\d{2}:\\d{2}:\\d{2}\.\\d{3})",
+    TIME   : "(\\d{2}:\\d{2}:\\d{2}\\.\\d{3})",
     TAG    : "(.*?)",
-    PRIO   : "([VDIWEF]|VERBOSE|DEBUG|INFO|WARN|ERROR|FATAL|\\d)",
+    PRIO   : "([VDIWEF]|VERBOSE|DEBUG|INFO|WARN|WARNING|ERROR|FATAL|NOTICE|\\d)",
     PID    : "(\\s*\\d+\\s*)",
     TID    : "(\\s*\\d+\\s*)",
     LOG    : "(.*)",
@@ -764,7 +766,7 @@ var kRegexpInputFormatTag
 var kRegexpInputFormatTime
     = new RegExp("^"+regex.DATA+"\\s"+regex.TIME+"\\s"+regex.PRIO+"\\/"+regex.TAG+"\\("+regex.PID+"\\)\\s*:\\s"+regex.LOG+"$");
 var kRegexpInputFormatThreadtime
-    = new RegExp("^"+regex.DATA+"\\s"+regex.TIME+"\\s+"+regex.PID+"\\s+"+regex.TID+"\\s+"+regex.PRIO+"\\s+"+regex.TAG+"\\s*:\\s"+regex.LOG+"$");
+    = new RegExp("^(\\d{2}-\\d{2})\\s+(\\d{2}:\\d{2}:\\d{2}\.\\d{3})\\s+[^ ]+\\s+(\\s*\\d+\\s*)\\s+(\\s*\\d+\\s*)\\s+([VDIWEF])\\s+(.*?)\\s*:\\s+(.*)$");
 var kRegexpInputFormatLong
     = new RegExp("^\\[.*\\]$");
 var kRegexpTitle
@@ -773,6 +775,8 @@ var kRegexpInputFormatCrash
     = new RegExp("^\\s*"+regex.PRIO+"\\s+\\[\\s*"+regex.TIMSTP+"]\\s+\\("+regex.PID+":"+regex.TID+"\\)\\s+"+regex.TAG+"\\s{2}"+regex.LOG+"$");
 var kRegexpInputFormatKernel
     = new RegExp("^<"+regex.PRIO+">\\[\\s*"+regex.TIMSTP+"\\]\\s+"+regex.LOG+"$");
+var kRegexpInputFormatSyslog
+    = new RegExp("^(\\d{4})-(\\d{2})-(\\d{2})T(\\d{2}):(\\d{2}):(\\d{2})\\.(\\d+)Z\\s*(VERBOSE|DEBUG|ERR|INFO|NOTICE|WARNING)\\s*([^:]+):\\s*(.*)$");
 
 // Statistics
 var statistics = {
@@ -1373,7 +1377,7 @@ function processTimeDiff() {
 
             html.push('<tr class="note-time error"><td colspan="', numberOfColumn, '">', '<span class="glyphicon glyphicon-time"></span> ');
             if (logbird.settings.time.secondsOnly) {
-                html.push(diff.toFixed(3));
+                html.push(diff.toFixed(6));
                 html.push(' seconds ');
             } else {
                 html.push(makeFullTimeFromMs(diff));
@@ -1385,7 +1389,7 @@ function processTimeDiff() {
             html.push('<tr class="note-time">');
             html.push('<td colspan="', numberOfColumn, '"><span class="glyphicon glyphicon-time"></span> ');
             if (logbird.settings.time.secondsOnly) {
-                html.push(diff.toFixed(3));
+                html.push(diff.toFixed(6));
                 html.push(' seconds ');
             } else {
                 html.push(makeFullTimeFromMs(diff));
@@ -1424,7 +1428,7 @@ function logTime2Timestamp(str) {
 
     if (format.haveTime(logbird.format)) {
         var time = str.trim();
-        var regex = new RegExp("^(\\d{2}):(\\d{2}):(\\d{2})\\.(\\d{3})$");
+        var regex = new RegExp("^(\\d{2}):(\\d{2}):(\\d{2})\\.(\\d+)$");
 
         if (regex.test(time)) {
             var match = regex.exec(time);
@@ -1433,7 +1437,12 @@ function logTime2Timestamp(str) {
             var sec = parseInt(match[3]);
             var uni = parseInt(match[4]);
 
-            result = (uni/1000) + sec + (min * 60) + (hrs *3600);
+            console.log(logbird.format);
+            if (logbird.format == format.SYSLOG) {
+                result = (uni/1000000) + sec + (min * 60) + (hrs *3600);
+            } else {
+                result = (uni/1000) + sec + (min * 60) + (hrs *3600);
+            }
         }
     }
 
@@ -1504,6 +1513,12 @@ function discoveryLogInputFormat(arr) {
             numberOfColumn = 7 + FEATURED_COLUMN;
             return format.CRASH;
         }
+
+        /* Syslog */
+        if (kRegexpInputFormatSyslog.test(log)) {
+            numberOfColumn = 6 + FEATURED_COLUMN;
+            return format.SYSLOG;
+        }
    }
 
     numberOfColumn = 1 + FEATURED_COLUMN;
@@ -1528,12 +1543,17 @@ function wrapTag(tag) { // FIXME
 }
 
 function priorityToString(priority) {
+    if (!priority) {
+        return "verbose";
+    }
+
     p = priority.toLowerCase();
+
     if (p == "v" || p == "verbose") return "verbose";
-    if (p == "d" || p == "debug") return "debug";
+    if (p == "d" || p == "debug" || p == "notice") return "debug";
     if (p == "i" || p == "info") return "info";
-    if (p == "w" || p == "warn") return "warning";
-    if (p == "e" || p == "error") return "error";
+    if (p == "w" || p == "warn" || p == "warning") return "warning";
+    if (p == "e" || p == "err" | p == "error") return "error";
     if (p == "f" || p == "fatal") return "fatal";
     return "";
 }
@@ -1582,6 +1602,8 @@ function parseLog(inputFormat, entry) {
             return parseCrashLog(entry);
         case format.KERNEL:
             return parseKernelLog(entry);
+        case format.SYSLOG:
+            return parseSyslogLog(entry);
         case format.RAW:
         default:
             return parseRawLog(entry);
@@ -1702,6 +1724,47 @@ function parseKernelLog(log) {
         var msg = match[3];
 
         return { type: "log", priority: priority, time: time, msg: msg };
+    } else {
+        return { type: "waif", msg: log };
+    }
+}
+
+function parseSyslogLog(log) {
+    var match = kRegexpInputFormatSyslog.exec(log);
+    var kRegexpTagWithProcess = new RegExp("^(.+)\\[(\\d+)\\]$");
+
+    if (match != null && match.length) {
+        var data = match[1] + "-" +  match[2] + "-" + match[3];
+        var time = match[4] + ":" + match[5] + ":" + match[6] + "." + match[7];
+
+        var priority = match[8];
+        var tag = validateTag(match[9]);
+        var msg = match[10];
+        var pid = "kernel";
+
+        if (kRegexpTagWithProcess.test(tag)) {
+            var tagMatch = kRegexpTagWithProcess.exec(tag);
+
+            if (tagMatch != null && tagMatch.length) {
+                tag = tagMatch[1];
+                pid = tagMatch[2];
+            }
+        } else {
+            msg = msg.replace(/(^\[ +\d+\.\d+\] )/mg, "");
+
+            // Always assume the first word in kernel is tag ...
+            var kRegexpKernelSyslog = new RegExp("^([0-9a-zA-Z\\-_:\\[\\]]+) +(.*)$");
+            // ... or not - only these with : after word without spaces
+            //var kRegexpKernelSyslog = new RegExp("^([0-9a-zA-Z_]+): +(.*)$");
+            var kMatch = kRegexpKernelSyslog.exec(msg);
+
+            if (kMatch != null && match.length) {
+                tag = validateTag(kMatch[1].replace(/[\[\]:]/mg, ""));
+                msg = kMatch[2];
+            }
+        }
+
+        return { type: "log", priority: priority[0], data: data, time: time, pid: pid, tag: tag, msg: msg };
     } else {
         return { type: "waif", msg: log };
     }
